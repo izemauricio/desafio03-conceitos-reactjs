@@ -21,8 +21,10 @@ describe("App component", () => {
   it("should be able to add new repository", async () => {
     const { getByText, getByTestId } = render(<App />);
 
+    // ao fazer get, retorna isso
     apiMock.onGet("repositories").reply(200, []);
 
+    // ao fazer post, retorna isso
     apiMock.onPost("repositories").reply(200, {
       id: "123",
       url: "https://github.com/josepholiveira",
@@ -32,10 +34,12 @@ describe("App component", () => {
 
     await actWait();
 
+    // dispara botao
     fireEvent.click(getByText("Adicionar"));
 
     await actWait();
 
+    // verifica se contem item
     expect(getByTestId("repository-list")).toContainElement(
       getByText("Desafio ReactJS")
     );
